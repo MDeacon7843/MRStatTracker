@@ -17,6 +17,7 @@ def grabImages(target: str):
     :return: A list of PIL Image objects in grayscale.
     :rtype: list of PIL.Image
     """
+
     # List comprehension to get paths of valid image files and open them in grayscale
     images = [
         Image.open(os.path.join(target, f)).convert("L")
@@ -28,7 +29,7 @@ def grabImages(target: str):
     return images
 
 def test():
-    images = grabImages("")
+    images = grabImages("C:\Users\MDeac\OneDrive\Desktop\CS Projects\marvelRivalsScreenshots")
     print(images)
 
 
