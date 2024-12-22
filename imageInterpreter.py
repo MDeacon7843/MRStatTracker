@@ -8,17 +8,24 @@ def grabStats(img: Image):
 
 def grabImages(target: str):
     """
-    Grabs the names of all image files in the directory target
+    Grabs all image files from the target directory, converts them to grayscale, 
+    and returns them as a list of PIL Image objects.
 
-    :param target: The target folder to pull images from
-    :type target: String
+    :param target: The target folder to pull images from.
+    :type target: str
 
-    :return: Image objects generated from the directory
-    :rtype: List of PIL.Image objects
+    :return: A list of PIL Image objects in grayscale.
+    :rtype: list of PIL.Image
     """
-
-    return [Image.open().convert("L") for f in [os.path.join(target, f) for f in os.listdir(target) if f.lower().endswith((".png",".jpeg",".jpg",".bmp"))]]
-
+    # List comprehension to get paths of valid image files and open them in grayscale
+    images = [
+        Image.open(os.path.join(target, f)).convert("L")
+        for f in os.listdir(target)
+        if f.lower().endswith(('.png', '.jpeg', '.jpg', '.bmp'))
+    ]
+    
+    # Return the list of images
+    return images
 
 def test():
     images = grabImages("")
