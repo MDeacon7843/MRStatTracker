@@ -1,6 +1,7 @@
 import pytesseract
 from PIL import Image
 import os
+import opencv
 
 def grabStats(img: Image):
     pytesseract.image_to_string
