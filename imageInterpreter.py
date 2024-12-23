@@ -13,24 +13,36 @@ def splitImages(images: list, includeEnemy=False) -> list:
     :param includeEnemy: A boolean to determine whether to include the enemy players when splitting the image
     :type includeEnemy: bool
 
-    :return: A list of lists of sectors of each image as PIL.Image objects
-    :rtype: list of lists of PIL.Image
+    :return: A list of cropped images corresponding to sectors of the image
+    :rtype: list of PIL.Image
     """
     
+    # Check edge case
+    if not images:
+        return []
+
     # Define the list to return
     cropped_images = []
 
-    # Define whether enemies will be included
-    players = 10 if includeEnemy else 5
+    # Define number of players according to the includeEnemy flag
+    num_players = 10 if includeEnemy else 5
+
+    # Define constants
+    PLAYER_HEIGHT = 49  # Height offset for each player
+    ENEMY_OFFSET = 3    # When including enemies increase offset on their crops
+    TOP_LEFT_CORNER = (159, 244) # Predetermined pixel coordinates for the first player's top left corner
+    BOTTOM_RIGHT_CORNER = (1729, 290) # Predetermined pixel coordinates for the first player's bottom right corner
 
     # Loop through images
     for image in images:
-        for player in range(players):
-            offset = 49 * player
+        for player in range(num_players):
+            offset = PLAYER_HEIGHT * player
             if player > 4:
-                offset += 3
-            cropped_images.append(Image.crop((159, 244 + offset, 1729, 290 + offset)))
-
+                offset += ENEMY_OFFSET
+            cropped_images.append(image.crop((TOP_LEFT_CORNER[0], TOP_LEFT_CORNER[1] + offset, BOTTOM_RIGHT_CORNER[0], BOTTOM_RIGHT_CORNER[1] + offset)))
+    
+    # Return the list of cropped images
+    return cropped_images
         
 
 
