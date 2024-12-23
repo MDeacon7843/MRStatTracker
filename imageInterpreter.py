@@ -2,7 +2,7 @@ import pytesseract
 from PIL import Image
 import os
 import cv2
-
+import player
 
 def splitImages(images: list, includeEnemy=False) -> list:
     """
@@ -25,7 +25,7 @@ def splitImages(images: list, includeEnemy=False) -> list:
     cropped_images = []
 
     # Define number of players according to the includeEnemy flag
-    num_players = 10 if includeEnemy else 5
+    num_players = 12 if includeEnemy else 6
 
     # Define constants
     PLAYER_HEIGHT = 49  # Height offset for each player
@@ -43,12 +43,10 @@ def splitImages(images: list, includeEnemy=False) -> list:
     
     # Return the list of cropped images
     return cropped_images
-        
-
 
 
 def grabStats(img: Image):
-    pytesseract.image_to_string
+    pass
 
 
 def grabImages(target: str) -> list:
@@ -73,9 +71,22 @@ def grabImages(target: str) -> list:
     # Return the list of images
     return images
 
+
 def test():
-    images = grabImages("C:\Users\MDeac\OneDrive\Desktop\CS Projects\marvelRivalsScreenshots")
-    print(images)
+    images = grabImages("C:/Users/MDeac/OneDrive/Desktop/CS Projects/marvelRivalsScreenshots")
+    cropped_image = splitImages(images[:1], True)
+    for i in range(len(cropped_image)):
+        cropped_image[i].save("test_crop.png")
+        img = cv2.imread("test_crop.png")
+        cv2.imshow("TEST WINDOW", img)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        del img
+        os.remove("./test_crop.png")
+
+
+
+
 
 
 if __name__ == "__main__":
