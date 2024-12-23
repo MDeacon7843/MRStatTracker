@@ -1,6 +1,8 @@
 import pytesseract
 from PIL import Image
 import os
+import cv2
+
 
 def splitImages(images: list, includeEnemy=False) -> list:
     """
@@ -14,7 +16,24 @@ def splitImages(images: list, includeEnemy=False) -> list:
     :return: A list of lists of sectors of each image as PIL.Image objects
     :rtype: list of lists of PIL.Image
     """
-    pass
+    
+    # Define the list to return
+    cropped_images = []
+
+    # Define whether enemies will be included
+    players = 10 if includeEnemy else 5
+
+    # Loop through images
+    for image in images:
+        for player in range(players):
+            offset = 49 * player
+            if player > 4:
+                offset += 3
+            cropped_images.append(Image.crop((159, 244 + offset, 1729, 290 + offset)))
+
+        
+
+
 
 def grabStats(img: Image):
     pytesseract.image_to_string
