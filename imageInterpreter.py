@@ -2,13 +2,27 @@ import pytesseract
 from PIL import Image
 import os
 
+def splitImages(images: list, includeEnemy=False) -> list:
+    """
+    Splits the image(s) by the predetermined sectors to ensure only relevant information is processed
+
+    :param images: A list of PIL Image objects to be split
+    :type images: list of PIL.Image
+    :param includeEnemy: A boolean to determine whether to include the enemy players when splitting the image
+    :type includeEnemy: bool
+
+    :return: A list of lists of sectors of each image as PIL.Image objects
+    :rtype: list of lists of PIL.Image
+    """
+    pass
+
 def grabStats(img: Image):
     pytesseract.image_to_string
 
 
-def grabImages(target: str):
+def grabImages(target: str) -> list:
     """
-    Grabs all image files ~from the target directory, converts them to grayscale, 
+    Grabs all image files from the target directory, converts them to grayscale, 
     and returns them as a list of PIL Image objects.
 
     :param target: The target folder to pull images from.
